@@ -1,5 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+  const siteHeader = document.getElementById('siteHeader');
+  
+  // --- MOBILE NAVIGATION TOGGLE ---
+  const navToggle = document.getElementById('navToggle');
+  const navOverlay = document.getElementById('navOverlay');
+
+  const closeMobileNav = () => {
+    siteHeader.classList.remove('nav-open');
+  };
+
+  if (navToggle) {
+    navToggle.addEventListener('click', () => {
+      siteHeader.classList.toggle('nav-open');
+    });
+  }
+  if (navOverlay) {
+    navOverlay.addEventListener('click', closeMobileNav);
+  }
+
   // --- SMOOTH SCROLL & ACTIVE NAV LINK ---
   const navLinks = document.querySelectorAll('.main-nav a');
   navLinks.forEach(link => {
@@ -10,24 +29,27 @@ document.addEventListener('DOMContentLoaded', () => {
       if (targetSection) {
         targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
+      closeMobileNav();
     });
   });
 
   // --- APPOINTMENT BUTTON SCROLL ---
-  // This makes the 'Request Appointment' buttons scroll to the contact form
   const navBookBtn = document.getElementById('bookBtn');
   const heroBookBtn = document.getElementById('heroBook');
-  const contactSection = document.getElementById('contact');
+  const mobileBookBtn = document.getElementById('mobileBookBtn');
+  const bookingSection = document.getElementById('booking');
 
-  const scrollToContact = (e) => {
+  const scrollToBooking = (e) => {
     e.preventDefault();
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (bookingSection) {
+      bookingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+    closeMobileNav();
   };
 
-  if (navBookBtn) navBookBtn.addEventListener('click', scrollToContact);
-  if (heroBookBtn) heroBookBtn.addEventListener('click', scrollToContact);
+  if (navBookBtn) navBookBtn.addEventListener('click', scrollToBooking);
+  if (heroBookBtn) heroBookBtn.addEventListener('click', scrollToBooking);
+  if (mobileBookBtn) mobileBookBtn.addEventListener('click', scrollToBooking);
 
 
   // --- FADE-IN SECTIONS ON SCROLL ---
@@ -51,49 +73,45 @@ document.addEventListener('DOMContentLoaded', () => {
   const ventTextarea = document.getElementById('ventTextarea');
   const postVentBtn = document.getElementById('postVentBtn');
   const ventDisplayArea = document.getElementById('ventDisplayArea');
+  const ventTriggerBtn = document.getElementById('ventTriggerBtn');
+  const ventFormContent = document.getElementById('ventFormContent');
   
-  // Modal Elements
   const modal = document.getElementById('ventModal');
   const modalText = document.getElementById('modalVentText');
   const closeBtn = document.getElementById('closeBtn');
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
-
   let allVents = [];
   let currentIndex = -1;
 
-  const refreshVents = () => {
-    allVents = Array.from(document.querySelectorAll('#ventDisplayArea .vent-card'));
-  };
+  if (ventTriggerBtn) {
+    ventTriggerBtn.addEventListener('click', () => {
+      ventFormContent.classList.toggle('is-open');
+    });
+  }
 
+  const refreshVents = () => { allVents = Array.from(document.querySelectorAll('#ventDisplayArea .vent-card')); };
   const openModal = (index) => {
     if (index < 0 || index >= allVents.length) return;
-    
     currentIndex = index;
-    const ventContent = allVents[index].querySelector('p').innerHTML;
-    modalText.innerHTML = ventContent;
+    modalText.innerHTML = allVents[index].querySelector('p').innerHTML;
     modal.style.display = 'block';
   };
-  
-  const closeModal = () => {
-    modal.style.display = 'none';
-  };
+  const closeModal = () => { modal.style.display = 'none'; };
 
   if (postVentBtn) {
     postVentBtn.addEventListener('click', () => {
       const ventText = ventTextarea.value.trim();
       if (ventText === '') return;
-
       const newVentCard = document.createElement('div');
       newVentCard.className = 'vent-card';
-      newVentCard.innerHTML = `
-        <p>"${ventText}"</p>
-        <small>Posted a few moments ago</small>
-      `;
+      newVentCard.innerHTML = `<p>"${ventText}"</p><small>Posted a few moments ago</small>`;
       ventDisplayArea.prepend(newVentCard);
       ventTextarea.value = '';
-      
       refreshVents();
+      if (ventFormContent.classList.contains('is-open')) {
+        ventFormContent.classList.remove('is-open');
+      }
     });
   }
   
@@ -101,34 +119,15 @@ document.addEventListener('DOMContentLoaded', () => {
     ventDisplayArea.addEventListener('click', (e) => {
       const clickedCard = e.target.closest('.vent-card');
       if (clickedCard) {
-        const index = allVents.indexOf(clickedCard);
-        openModal(index);
+        openModal(allVents.indexOf(clickedCard));
       }
     });
   }
   
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
-  if (modal) {
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            closeModal();
-        }
-    });
-  }
-
-  if (nextBtn) {
-    nextBtn.addEventListener('click', () => {
-      const newIndex = (currentIndex + 1) % allVents.length;
-      openModal(newIndex);
-    });
-  }
-
-  if (prevBtn) {
-    prevBtn.addEventListener('click', () => {
-      const newIndex = (currentIndex - 1 + allVents.length) % allVents.length;
-      openModal(newIndex);
-    });
-  }
+  if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  if (nextBtn) nextBtn.addEventListener('click', () => { openModal((currentIndex + 1) % allVents.length); });
+  if (prevBtn) prevBtn.addEventListener('click', () => { openModal((currentIndex - 1 + allVents.length) % allVents.length); });
 
   refreshVents();
 });
