@@ -1,0 +1,234 @@
+<!doctype html>
+ <html lang="en">
+ <head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>Safe Space Counseling — Book a Session</title>
+
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+ </head>
+ <body>
+   <header class="site-header" id="siteHeader">
+     <div class="container header-inner">
+       <a href="#" class="logo" aria-label="Safe Space Home">
+         <span class="logo-mark">🌊</span>
+         <span class="logo-text">Safe Space</span>
+       </a>
+
+       <nav class="main-nav" aria-label="Main Navigation">
+         <ul>
+           <li><a href="#about" class="nav-link">About</a></li>
+           <li><a href="#services" class="nav-link">Services</a></li>
+           <li><a href="#vent" class="nav-link">Anonymous Vent</a></li>
+           <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+           <li><a href="#contact" class="nav-link">Contact</a></li>
+         </ul>
+       </nav>
+
+       <div class="header-actions">
+         <button class="btn btn-primary" id="bookBtn">Request Appointment</button>
+         <button class="mobile-nav-toggle" id="navToggle" aria-label="Toggle navigation">
+           <span></span><span></span><span></span>
+         </button>
+       </div>
+     </div>
+   </header>
+
+   <main>
+     <section class="hero fade-in-section" id="about">
+       <div class="container hero-inner">
+         <div class="hero-copy">
+           <h1 class="motto">Speak freely. Be heard. Find calm.</h1>
+           <p class="sub">A safe, supportive space for short vent sessions and counseling for individuals and couples.</p>
+           <div class="hero-ctas">
+             <button class="btn btn-primary" id="heroBook">Request Appointment</button>
+             <a href="#anon-vent" class="btn btn-secondary">Anonymous Vent</a>
+           </div>
+         </div>
+         <div class="hero-art">
+           </div>
+       </div>
+     </section>
+
+     <section id="services" class="services fade-in-section">
+       <div class="container">
+         <div class="section-header">
+           <h2>Our Services</h2>
+           <p>We offer a range of support tailored to your needs.</p>
+         </div>
+         <div class="service-cards">
+           <div class="card">
+             <i class="fas fa-user icon"></i>
+             <h3>Individual Counseling</h3>
+             <p>One-on-one sessions to explore your thoughts and feelings in a confidential setting.</p>
+           </div>
+
+           <div class="card">
+             <i class="fas fa-users icon"></i>
+             <h3>Couples Counseling</h3>
+             <p>Support for building healthier communication and stronger connections with your partner.</p>
+           </div>
+
+           <div class="card">
+             <i class="fas fa-feather-alt icon"></i>
+             <h3>Anonymous Vent Sessions</h3>
+             <p>A non-judgmental space to simply let go and be heard without any strings attached.</p>
+           </div>
+         </div>
+       </div>
+     </section>
+
+     <section id="vent" class="fade-in-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Vent Anonymously</h2>
+          <p>A judgment-free zone. Share what's on your mind below.</p>
+        </div>
+
+        <div class="vent-layout">
+          <div class="vent-form-card">
+            <h3>Let It Out...</h3>
+            <textarea id="ventTextarea" placeholder="Type what's on your mind... no names, no identifiers. Just your thoughts." rows="8"></textarea>
+            <button id="postVentBtn" class="btn btn-primary">Post Anonymously</button>
+          </div>
+
+          <div id="ventDisplayArea" class="vent-display-area">
+            <div class="vent-card">
+              <p>"Sometimes I feel like I'm running in place and everyone else is lapping me. It's exhausting trying to keep up with expectations that aren't even my own."</p>
+              <small>Posted a few moments ago</small>
+            </div>
+            <div class="vent-card">
+              <p>"I'm just tired. Not sleepy, just tired of the routine, the pressure, the noise. I wish I could just press pause for a week and hear nothing at all."</p>
+              <small>Posted 12 minutes ago</small>
+            </div>
+            <div class="vent-card">
+              <p>"Is it normal to feel completely lost at this age? Everyone on social media seems to have it all figured out, and I'm still trying to figure out what to have for dinner."</p>
+              <small>Posted 48 minutes ago</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+     <section class="booking fade-in-section" id="contact">
+       <div class="container">
+         <form id="bookingForm" name="booking" class="booking-card" autocomplete="off" data-netlify="true">
+           <input type="hidden" name="form-name" value="booking" />
+
+           <div class="form-header">
+             <h2>Book a Session</h2>
+             <p>Fill out the form below to request your appointment.</p>
+           </div>
+
+           <div class="form-grid">
+             <div class="form-group">
+               <label for="apptType">Appointment type</label>
+               <select id="apptType" name="appointmentType" required>
+                 <option value="" disabled selected>Select type...</option>
+                 <option value="individual">Individual Counseling</option>
+                 <option value="couples">Couples Counseling</option>
+                 <option value="vent">Just need to vent (off-my-chest)</option>
+               </select>
+             </div>
+
+             <div class="form-group">
+               <label for="format">Format</label>
+               <select id="format" name="format">
+                 <option value="video">Video call</option>
+                 <option value="voice">Voice call</option>
+                 <option value="text">Text chat</option>
+               </select>
+             </div>
+
+             <div class="form-group">
+               <label for="date">Choose date</label>
+               <input type="date" id="date" name="date" required>
+             </div>
+
+             <div class="form-group">
+               <label for="time">Choose time</label>
+               <input type="time" id="time" name="time" required>
+             </div>
+
+             <div class="form-group full-width">
+               <label for="name">Your name</label>
+               <input type="text" id="name" name="name" placeholder="Your name or a nickname" required>
+             </div>
+
+             <div class="form-group full-width">
+               <label for="email">Email (for confirmation)</label>
+               <input type="email" id="email" name="email" placeholder="email@example.com" required>
+             </div>
+
+             <div class="form-group full-width">
+               <label for="reason">Reason for visit (optional)</label>
+               <textarea id="reason" name="reason" rows="4" placeholder="Briefly, what's on your mind?"></textarea>
+             </div>
+
+             <div class="form-group full-width">
+               <label class="consent">
+                 <input type="checkbox" id="consent" name="consent" required>
+                 I agree to the privacy policy and understand this is not an emergency service.
+               </label>
+             </div>
+           </div>
+
+           <div class="form-actions">
+             <button class="btn btn-ghost" type="reset">Reset</button>
+             <button class="btn btn-primary" type="submit">Confirm Booking</button>
+           </div>
+         </form>
+       </div>
+     </section>
+
+     <section id="testimonials" class="testimonials fade-in-section">
+       <div class="container">
+         <div class="section-header">
+           <h2>What People Are Saying</h2>
+         </div>
+         <div class="testimonial-grid">
+           <div class="testimonial-card">
+             <p>"The counseling session was life-changing. I felt heard and truly supported. Thank you."</p>
+             <cite>— Tinashe Z.</cite>
+           </div>
+           <div class="testimonial-card">
+             <p>"The quick vent session was exactly what I needed to clear my head. Simple and effective."</p>
+             <cite>— Thandi N.</cite>
+           </div>
+           <div class="testimonial-card">
+             <p>"My partner and I made more progress in one couples session than we had in months on our own."</p>
+             <cite>— Farai N.</cite>
+           </div>
+         </div>
+       </div>
+     </section>
+   </main>
+
+   <div id="ventModal" class="modal">
+     <div class="modal-content">
+       <span id="closeBtn" class="close-btn">&times;</span>
+       <p id="modalVentText"></p>
+       <span id="prevBtn" class="nav-arrow prev">&#10094;</span>
+       <span id="nextBtn" class="nav-arrow next">&#10095;</span>
+     </div>
+   </div>
+ 
+   <footer class="site-footer">
+     <div class="container footer-inner">
+       <p>© <span id="year"></span> Safe Space Counseling • <a href="#privacy">Privacy</a> • <a href="#terms">Terms</a></p>
+       <div class="social">
+         <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+         <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+       </div>
+     </div>
+   </footer>
+
+   <script src="script.js"></script>
+ </body>
+ </html>
+
+ 
