@@ -6,7 +6,7 @@
    <title>Safe Space Counseling — Book a Session</title>
 
    <link rel="preconnect" href="https://fonts.googleapis.com">
-   <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
    <link rel="stylesheet" href="style.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -26,6 +26,9 @@
            <li><a href="#vent" class="nav-link">Anonymous Vent</a></li>
            <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
            <li><a href="#contact" class="nav-link">Contact</a></li>
+           <li class="mobile-only">
+             <a href="#booking" id="mobileBookBtn" class="btn btn-primary">Request Appointment</a>
+           </li>
          </ul>
        </nav>
 
@@ -36,6 +39,7 @@
          </button>
        </div>
      </div>
+     <div id="navOverlay" class="nav-overlay"></div>
    </header>
 
    <main>
@@ -46,7 +50,7 @@
            <p class="sub">A safe, supportive space for short vent sessions and counseling for individuals and couples.</p>
            <div class="hero-ctas">
              <button class="btn btn-primary" id="heroBook">Request Appointment</button>
-             <a href="#anon-vent" class="btn btn-secondary">Anonymous Vent</a>
+             <a href="#vent" class="btn btn-secondary">Anonymous Vent</a>
            </div>
          </div>
          <div class="hero-art">
@@ -89,13 +93,18 @@
           <p>A judgment-free zone. Share what's on your mind below.</p>
         </div>
 
+
+        
+
         <div class="vent-layout">
           <div class="vent-form-card">
-            <h3>Let It Out...</h3>
-            <textarea id="ventTextarea" placeholder="Type what's on your mind... no names, no identifiers. Just your thoughts." rows="8"></textarea>
-            <button id="postVentBtn" class="btn btn-primary">Post Anonymously</button>
+            <h3 class="desktop-only">Let It Out...</h3>
+            <button id="ventTriggerBtn" class="btn btn-secondary">Click Here to Vent</button>
+            <div id="ventFormContent" class="vent-form-content">
+              <textarea id="ventTextarea" placeholder="Type what's on your mind... no names, no identifiers. Just your thoughts." rows="8"></textarea>
+              <button id="postVentBtn" class="btn btn-primary">Post Anonymously</button>
+            </div>
           </div>
-
           <div id="ventDisplayArea" class="vent-display-area">
             <div class="vent-card">
               <p>"Sometimes I feel like I'm running in place and everyone else is lapping me. It's exhausting trying to keep up with expectations that aren't even my own."</p>
@@ -113,77 +122,6 @@
         </div>
       </div>
     </section>
-
-     <section class="booking fade-in-section" id="contact">
-       <div class="container">
-         <form id="bookingForm" name="booking" class="booking-card" autocomplete="off" data-netlify="true">
-           <input type="hidden" name="form-name" value="booking" />
-
-           <div class="form-header">
-             <h2>Book a Session</h2>
-             <p>Fill out the form below to request your appointment.</p>
-           </div>
-
-           <div class="form-grid">
-             <div class="form-group">
-               <label for="apptType">Appointment type</label>
-               <select id="apptType" name="appointmentType" required>
-                 <option value="" disabled selected>Select type...</option>
-                 <option value="individual">Individual Counseling</option>
-                 <option value="couples">Couples Counseling</option>
-                 <option value="vent">Just need to vent (off-my-chest)</option>
-               </select>
-             </div>
-
-             <div class="form-group">
-               <label for="format">Format</label>
-               <select id="format" name="format">
-                 <option value="video">Video call</option>
-                 <option value="voice">Voice call</option>
-                 <option value="text">Text chat</option>
-               </select>
-             </div>
-
-             <div class="form-group">
-               <label for="date">Choose date</label>
-               <input type="date" id="date" name="date" required>
-             </div>
-
-             <div class="form-group">
-               <label for="time">Choose time</label>
-               <input type="time" id="time" name="time" required>
-             </div>
-
-             <div class="form-group full-width">
-               <label for="name">Your name</label>
-               <input type="text" id="name" name="name" placeholder="Your name or a nickname" required>
-             </div>
-
-             <div class="form-group full-width">
-               <label for="email">Email (for confirmation)</label>
-               <input type="email" id="email" name="email" placeholder="email@example.com" required>
-             </div>
-
-             <div class="form-group full-width">
-               <label for="reason">Reason for visit (optional)</label>
-               <textarea id="reason" name="reason" rows="4" placeholder="Briefly, what's on your mind?"></textarea>
-             </div>
-
-             <div class="form-group full-width">
-               <label class="consent">
-                 <input type="checkbox" id="consent" name="consent" required>
-                 I agree to the privacy policy and understand this is not an emergency service.
-               </label>
-             </div>
-           </div>
-
-           <div class="form-actions">
-             <button class="btn btn-ghost" type="reset">Reset</button>
-             <button class="btn btn-primary" type="submit">Confirm Booking</button>
-           </div>
-         </form>
-       </div>
-     </section>
 
      <section id="testimonials" class="testimonials fade-in-section">
        <div class="container">
@@ -206,6 +144,86 @@
          </div>
        </div>
      </section>
+
+     <section id="contact" class="fade-in-section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Get In Touch</h2>
+            <p>The easiest way to reach out is through WhatsApp or Facebook.</p>
+          </div>
+          <div class="contact-links">
+            <a href="https://wa.me/263779852231" class="contact-button whatsapp" target="_blank">
+              <i class="fab fa-whatsapp"></i>
+              Chat on WhatsApp
+            </a>
+            <a href="https://www.facebook.com/ellen.moyo.3386?mibextid=rS40aB7S9Ucbxw6v" class="contact-button facebook" target="_blank">
+              <i class="fab fa-facebook"></i>
+              Message on Facebook
+            </a>
+          </div>
+        </div>
+     </section>
+
+     <section class="booking fade-in-section" id="booking">
+       <div class="container">
+         <form id="bookingForm" name="booking" class="booking-card" autocomplete="off" data-netlify="true">
+           <input type="hidden" name="form-name" value="booking" />
+           <div class="form-header">
+             <h2>Or, Book a Session Directly</h2>
+             <p>Fill out the form below to request your appointment.</p>
+           </div>
+           <div class="form-grid">
+             <div class="form-group">
+               <label for="apptType">Appointment type</label>
+               <select id="apptType" name="appointmentType" required>
+                 <option value="" disabled selected>Select type...</option>
+                 <option value="individual">Individual Counseling</option>
+                 <option value="couples">Couples Counseling</option>
+                 <option value="vent">Just need to vent (off-my-chest)</option>
+               </select>
+             </div>
+             <div class="form-group">
+               <label for="format">Format</label>
+               <select id="format" name="format">
+                 <option value="video">Video call</option>
+                 <option value="voice">Voice call</option>
+                 <option value="text">Text chat</option>
+               </select>
+             </div>
+             <div class="form-group">
+               <label for="date">Choose date</label>
+               <input type="date" id="date" name="date" required>
+             </div>
+             <div class="form-group">
+               <label for="time">Choose time</label>
+               <input type="time" id="time" name="time" required>
+             </div>
+             <div class="form-group full-width">
+               <label for="name">Your name</label>
+               <input type="text" id="name" name="name" placeholder="Your name or a nickname" required>
+             </div>
+             <div class="form-group full-width">
+               <label for="email">Email (for confirmation)</label>
+               <input type="email" id="email" name="email" placeholder="email@example.com" required>
+             </div>
+             <div class="form-group full-width">
+               <label for="reason">Reason for visit (optional)</label>
+               <textarea id="reason" name="reason" rows="4" placeholder="Briefly, what's on your mind?"></textarea>
+             </div>
+             <div class="form-group full-width">
+               <label class="consent">
+                 <input type="checkbox" id="consent" name="consent" required>
+                 I agree to the privacy policy and understand this is not an emergency service.
+               </label>
+             </div>
+           </div>
+           <div class="form-actions">
+             <button class="btn btn-ghost" type="reset">Reset</button>
+             <button class="btn btn-primary" type="submit">Confirm Booking</button>
+           </div>
+         </form>
+       </div>
+     </section>
    </main>
 
    <div id="ventModal" class="modal">
@@ -219,7 +237,7 @@
  
    <footer class="site-footer">
      <div class="container footer-inner">
-       <p>© <span id="year"></span> Safe Space Counseling • <a href="#privacy">Privacy</a> • <a href="#terms">Terms</a></p>
+       <p>© <span id="year"></span> Safe Space Counseling • <a href="#">Privacy</a> • <a href="#">Terms</a></p>
        <div class="social">
          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
@@ -228,7 +246,52 @@
    </footer>
 
    <script src="script.js"></script>
+
+   <script type="module">
+    // Import Firebase functions from the CDN
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+  
+    // Your Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyDLtyPh91GCq2tUQsVW6mApSzu6QdwmEXc",
+      authDomain: "safe-space-anonvents.firebaseapp.com",
+      projectId: "safe-space-anonvents",
+      storageBucket: "safe-space-anonvents.firebasestorage.app",
+      messagingSenderId: "684031284047",
+      appId: "1:684031284047:web:3b1aa41f7b0dd6e78ceb3a",
+      measurementId: "G-9NCSQH52E8"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getFirestore(app);
+  
+    // Form handling
+    const ventForm = document.getElementById("ventForm");
+    const ventInput = document.getElementById("ventInput");
+  
+    ventForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const ventText = ventInput.value.trim();
+      if (!ventText) return;
+  
+      try {
+        await addDoc(collection(db, "vents"), {
+          text: ventText,
+          timestamp: new Date()
+        });
+        alert("✅ Vent submitted anonymously!");
+        ventInput.value = "";
+      } catch (error) {
+        console.error("Error adding vent: ", error);
+        alert("❌ Something went wrong, try again later.");
+      }
+    });
+  </script>
+  
+
  </body>
  </html>
-
- 
