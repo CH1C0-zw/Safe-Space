@@ -13,7 +13,7 @@
   --border-radius: 12px;
   --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   --transition-speed: 0.3s;
-  --container-width: 1100px;
+  --container-width: 1280px;
 }
 
 /* Base */
@@ -26,8 +26,9 @@ body {
   line-height: 1.6;
   position: relative;
   background: linear-gradient(to bottom, #f8f9fa, #eef1f4);
-  scroll-behavior: auto; /* JS handles smooth scrolling for easing control */
-  padding-top: 80px; /* Pushes content down below the fixed header */
+  scroll-behavior: auto;
+  padding-top: 85px;
+  font-size: 18px;
 }
 
 /* Background image with reduced opacity via pseudo-element */
@@ -37,7 +38,7 @@ body::before {
   top: 0; left: 0; right: 0; bottom: 0;
   background: url("wavesBACKGROUND.jpg") no-repeat center center fixed;
   background-size: cover;
-  opacity: 0.25; /* reduce this to make bg fainter/stronger */
+  opacity: 0.25;
   z-index: -1;
 }
 
@@ -49,7 +50,7 @@ h2 { font-size: clamp(2rem,4vw,2.75rem); }
 .container {
   max-width: var(--container-width);
   margin: 0 auto;
-  /* padding: 0 2rem; */
+  padding: 0 2rem;
 }
 
 /* Universal padding for all main sections */
@@ -73,7 +74,7 @@ main > section {
 
 /* Header */
 .site-header {
-  padding: 1.25rem 0;
+  padding: 1rem 0;
   background: rgba(238, 241, 244, 0.95);
   backdrop-filter: blur(8px);
   position: fixed;
@@ -82,259 +83,240 @@ main > section {
   z-index: 50;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
-.header-inner { display: flex; justify-content: space-between; align-items: center; }
+
+.header-inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 2rem;
+}
+
 .logo {
+  grid-column: 1;
+  justify-self: start;
   display:flex;
   align-items:center;
   text-decoration:none;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight:700;
   color:var(--color-text-dark);
-  margin-left: -15rem;
+  white-space: nowrap;
+  margin-left: 0;
 }
 .logo-mark {
-  font-size: 1.8rem;
-  margin-right:1.5rem;
+  font-size: 2rem;
+  margin-right:0.5rem;
 }
 
 /* Nav */
-.main-nav ul { list-style:none; padding:0; margin:0; display:flex; gap:2rem; }
-.main-nav a {
-  color: var(--color-text-light);
-  font-weight:600;
-  text-decoration:none;
-  transition: color var(--transition-speed) ease;
-  font-size: 23px;
-}
-.main-nav a:hover, .main-nav a:focus { color: var(--color-primary); outline:none; }
+.main-nav { grid-column: 2; }
+.main-nav ul { list-style:none; padding:0; margin:0; display:flex; gap: 2rem; }
+.main-nav a { position: relative; color: var(--color-text-light); font-weight:600; text-decoration:none; font-size: 1.15rem; padding: 0.25rem; transition: color var(--transition-speed) ease; }
+.main-nav a:hover, .main-nav a:focus { color: var(--color-primary); outline: none; }
+.main-nav a::after { content: ''; position: absolute; width: 100%; transform: scaleX(0); height: 2px; bottom: -5px; left: 0; background-color: var(--color-primary); transform-origin: bottom right; transition: transform 0.3s ease-out; }
+.main-nav a:hover::after { transform: scaleX(1); transform-origin: bottom left; }
 
 /* Buttons */
-.btn {
-  display:inline-block;
-  padding: 0.9rem 1.8rem;
-  border-radius:50px;
-  font-weight:600;
-  border:2px solid transparent;
-  cursor:pointer;
-  font-size: 1rem;
-}
+.btn { display:inline-block; padding: 0.9rem 1.8rem; border-radius:50px; font-weight:600; border:2px solid transparent; cursor:pointer; font-size: 1.1rem; }
 .btn-primary { background-color:var(--color-primary); color:#fff; border-color:var(--color-primary); }
 .btn-primary:hover { background-color:var(--color-primary-hover); border-color:var(--color-primary-hover); }
 .btn-secondary { background-color:transparent; color:var(--color-primary); border-color:var(--color-primary); }
 .btn-secondary:hover { background-color:var(--color-primary); color:#fff; }
 .btn-ghost { background-color:transparent; color:var(--color-text-light); }
+.header-actions { grid-column: 3; justify-self: end; margin-right: 0; }
 
 /* Hero */
 .hero-inner { display:grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items:center; }
 .hero-copy .motto { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem; }
-.hero-copy .sub { font-size:1.1rem; color:var(--color-text-light); margin-bottom:1.25rem; }
+.hero-copy .sub { font-size:1.2rem; color:var(--color-text-light); margin-bottom:1.25rem; }
 .hero-ctas { display:flex; gap:1rem; }
 
-/* BORDERS ADDED TO INDIVIDUAL CARDS AS REQUESTED */
-.service-cards, .testimonial-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:2rem; }
-.card, .testimonial-card {
-  background: var(--color-card-bg);
-  border-radius: var(--border-radius);
-  padding: 2rem;
-  box-shadow: var(--box-shadow);
-  text-align:center;
-  transition: transform var(--transition-speed) ease;
-  border: 2px solid var(--color-text-dark);
-}
+/* Services & Testimonials Cards */
+.service-cards, .testimonial-grid { display:grid; grid-template-columns: 1fr 1fr; gap:2rem; justify-content: center; }
+.card, .testimonial-card { display: flex; flex-direction: column; background: var(--color-card-bg); border-radius: var(--border-radius); padding: 2.5rem; box-shadow: var(--box-shadow); text-align:center; transition: transform var(--transition-speed) ease; border: 2px solid var(--color-text-dark); }
+.card p, .testimonial-card p { flex-grow: 1; }
 .card:hover, .testimonial-card:hover { transform: translateY(-6px); }
 .card .icon { font-size: 3rem; color: var(--color-primary); margin-bottom: 1rem; }
+.service-cards .card:last-child:nth-child(odd),
+.testimonial-grid .testimonial-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
 
-/* Booking form */
-.booking-card {
-  background: var(--color-form-bg);
-  border-radius: var(--border-radius);
-  padding: 2.5rem;
-  box-shadow: var(--box-shadow);
-  max-width: 860px;
-  margin: 0 auto;
-  border: 2px solid var(--color-text-dark);
-}
+/* Contact Section Styles */
+.contact-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+.contact-button { display: inline-flex; align-items: center; justify-content: center; padding: 1.5rem 3rem; border-radius: var(--border-radius); text-decoration: none; font-size: 1.25rem; font-weight: 600; color: #fff; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: var(--box-shadow); }
+.contact-button:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+.contact-button i { font-size: 2rem; margin-right: 1rem; }
+.contact-button.whatsapp { background-color: #25D366; }
+.contact-button.facebook { background-color: #1877F2; }
+
+/* Booking form & Vent Section Styles... */
+.booking-card, .vent-form-card { background: var(--color-form-bg); border-radius: var(--border-radius); padding: 2.5rem; box-shadow: var(--box-shadow); max-width: 860px; margin: 0 auto; border: 2px solid var(--color-text-dark); }
 .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:1.25rem; }
 .form-group.full-width { grid-column: 1 / -1; }
 .form-group label { display:block; font-weight:600; margin-bottom:.5rem; color:var(--color-text-light); }
 .form-group input, .form-group select, .form-group textarea { width:100%; padding:.75rem 1rem; border:1px solid var(--color-border); border-radius:8px; background:#fafbfd; font-family:inherit; }
 .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline:none; box-shadow: 0 0 0 3px rgba(89,115,135,0.08); border-color:var(--color-primary); }
+.vent-layout { display: grid; grid-template-columns: 1fr 1.25fr; gap: 2rem; align-items: flex-start; }
+.vent-form-card { padding: 2rem; position: sticky; top: 120px; }
+.vent-form-card h3 { margin-top: 0; text-align: center; }
+.desktop-only { display: block; }
+#ventTriggerBtn { display: none; }
+.vent-form-card textarea { width: 100%; padding: 1rem; border: 1px solid var(--color-border); border-radius: 8px; font-family: inherit; font-size: 1rem; margin-bottom: 1rem; min-height: 150px; resize: vertical; }
+.vent-form-card .btn { width: 100%; }
+.vent-display-area { display: flex; flex-direction: column; gap: 1.5rem; max-height: 550px; overflow-y: auto; padding-right: 1rem; }
+.vent-card { background: var(--color-card-bg); border: 2px solid var(--color-text-dark); border-radius: var(--border-radius); padding: 1.5rem; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+.vent-card p { margin: 0 0 0.75rem 0; font-style: italic; color: var(--color-text-light); }
+.vent-card small { color: var(--color-text-muted); font-weight: 600; }
 
-/* === Anonymous Vent Section Styles === */
-.vent-layout {
-  display: grid;
-  grid-template-columns: 1fr 1.25fr; /* Make the display area a bit wider */
-  gap: 2rem;
-  align-items: flex-start;
-}
+/* Modal (Popup) Styles */
+.modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.8); backdrop-filter: blur(5px); animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal-content { background-color: var(--color-card-bg); color: var(--color-text-dark); margin: 15% auto; padding: 40px; border: 2px solid var(--color-text-dark); border-radius: var(--border-radius); width: 80%; max-width: 600px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+.modal-content p { font-size: 1.5rem; font-style: italic; line-height: 1.6; text-align: center; }
+.close-btn { color: var(--color-text-muted); position: absolute; top: 10px; right: 25px; font-size: 35px; font-weight: bold; cursor: pointer; transition: color 0.3s ease; }
+.close-btn:hover { color: var(--color-text-dark); }
+.nav-arrow { cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%); font-size: 2rem; color: var(--color-text-light); transition: color 0.3s ease; user-select: none; }
+.nav-arrow:hover { color: var(--color-primary); }
+.nav-arrow.prev { left: -50px; }
+.nav-arrow.next { right: -50px; }
 
-.vent-form-card {
-  background: var(--color-form-bg);
-  border: 2px solid var(--color-text-dark);
-  border-radius: var(--border-radius);
-  padding: 2rem;
-  position: sticky; /* Makes the form stick while you scroll vents */
-  top: 100px; /* Adjust based on your header height */
-}
-
-.vent-form-card h3 {
-  margin-top: 0;
-  text-align: center;
-}
-
-/* Add this new rule to your CSS, for example after the .btn rules */
-.header-actions {
-  margin-right: -15rem; /* ✅ This pulls the button to the right */
-}
-
-.vent-form-card textarea {
-  width: 100%;
-  padding: 1rem;
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  font-family: inherit;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  min-height: 150px;
-  resize: vertical;
-}
-
-.vent-form-card .btn {
-  width: 100%;
-}
-
-.vent-display-area {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  max-height: 550px; /* ✅ ADD: Sets a maximum height */
-  overflow-y: auto;  /* ✅ ADD: Shows a scrollbar only when needed */
-  padding-right: 1rem; /* Optional: Adds space so the scrollbar doesn't touch the text */
-}
-.vent-card {
-  background: var(--color-card-bg);
-  border: 2px solid var(--color-text-dark);
-  border-radius: var(--border-radius);
-  padding: 1.5rem;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
-.vent-card p {
-  margin: 0 0 0.75rem 0;
-  font-style: italic;
-  color: var(--color-text-light);
-}
-
-.vent-card small {
-  color: var(--color-text-muted);
-  font-weight: 600;
-}
-
+/* Mobile-Only Elements & Nav Overlay */
+.mobile-only { display: none; }
+.nav-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 99; opacity: 0; visibility: hidden; transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out; }
+.site-header.nav-open .nav-overlay { opacity: 1; visibility: visible; }
 
 /* Footer */
 .site-footer { background: rgba(255,255,255,0.9); padding: 2rem 1rem; margin-top: 4rem; display:flex; justify-content:center; align-items:center; flex-direction:column; }
-.footer-inner {
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
-  max-width:var(--container-width);
-  margin: 0 auto;
-  gap:1rem;
-  border: 2px solid var(--color-text-dark);
-  border-radius: var(--border-radius);
-  padding: 1.5rem;
-  width: 100%;
-}
+.footer-inner { display:flex; flex-direction:column; align-items:center; text-align:center; max-width:var(--container-width); margin: 0 auto; gap:1rem; border: 2px solid var(--color-text-dark); border-radius: var(--border-radius); padding: 1.5rem; width: 100%; }
 .social a { font-size:1.5rem; margin:0 .75rem; color:var(--color-text-light); transition: color var(--transition-speed) ease; }
 .social a:hover { color: var(--color-primary); }
 
+/* Mobile Nav Toggle */
+.mobile-nav-toggle { display: none; background: transparent; border: none; padding: 0.5rem; cursor: pointer; }
+.mobile-nav-toggle span { display: block; width: 25px; height: 3px; background-color: var(--color-text-dark); margin: 5px 0; transition: all 0.3s ease-in-out; }
+
 /* Responsive */
 @media (max-width: 900px) {
-  .hero-inner, .vent-layout {
-    grid-template-columns: 1fr;
-    text-align:center;
+  .header-inner { display: flex; justify-content: space-between; }
+  .hero-inner, .vent-layout, .service-cards, .testimonial-grid { grid-template-columns: 1fr; text-align:center; }
+  .hero-art { display: none; }
+  .mobile-nav-toggle { display: block; z-index: 101; }
+  .header-actions { display: none; }
+  .container { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .hero-ctas { flex-direction: column; align-items: center; gap: 1rem; }
+  .hero-ctas .btn { width: 90%; max-width: 350px; font-size: 1rem; padding: 0.8rem 1.5rem; }
+  .logo { margin-left: 0; z-index: 101; }
+
+  .site-header.nav-open .main-nav { transform: translateX(0); }
+  .main-nav {
+    display: flex;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: auto;
+    min-width: 280px;
+    height: 100vh;
+    padding: 6rem 3rem;
+    background: rgba(248, 249, 250, 0.98);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 100;
+    border-left: 1px solid var(--color-border);
   }
-  .hero-art { order: -1; }
-  .main-nav { display:none; }
-  .mobile-nav-toggle { display:block; }
-  .header-actions { gap:1rem; }
+  .main-nav ul { flex-direction: column; gap: 2rem; align-items: center; }
+
+  .mobile-only { display: block; margin-top: 1rem; }
+  
+  .site-header.nav-open .mobile-nav-toggle span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .site-header.nav-open .mobile-nav-toggle span:nth-child(2) { opacity: 0; }
+  .site-header.nav-open .mobile-nav-toggle span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+  
+  .vent-form-card { position: static; padding: 1.5rem; }
+  .desktop-only { display: none; }
+  #ventTriggerBtn { display: block; width: 100%; margin-bottom: 1rem; }
+  .vent-form-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-in-out; }
+  .vent-form-content.is-open { max-height: 500px; }
+  .contact-links { flex-direction: column; }
+
+  /* Replace the existing .header-actions { display: none; } rule with this */
+.header-actions {
+  /* keep the header-actions container so the hamburger remains in DOM/layout */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: end;
+  margin-right: 0;
 }
 
-/* === Modal (Popup) Styles === */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed;
-  z-index: 100;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.8);
-  backdrop-filter: blur(5px);
-  animation: fadeIn 0.3s ease;
+/* hide desktop-only button(s) but keep the hamburger visible */
+.header-actions .btn {
+  display: none; /* hides the "Request Appointment" desktop button on mobile */
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.modal-content {
-  background-color: var(--color-card-bg);
-  color: var(--color-text-dark);
-  margin: 15% auto;
-  padding: 40px;
-  border: 2px solid var(--color-text-dark);
-  border-radius: var(--border-radius);
-  width: 80%;
-  max-width: 600px;
-  position: relative;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-}
-
-.modal-content p {
-  font-size: 1.5rem;
-  font-style: italic;
-  line-height: 1.6;
-  text-align: center;
-}
-
-.close-btn {
-  color: var(--color-text-muted);
-  position: absolute;
-  top: 10px;
-  right: 25px;
-  font-size: 35px;
-  font-weight: bold;
+/* ensure the hamburger is visible and clickable */
+.mobile-nav-toggle {
+  display: block; /* should already be set, but reinforce it here */
+  z-index: 101;
+  background: transparent;
+  border: none;
+  padding: 0.5rem;
   cursor: pointer;
-  transition: color 0.3s ease;
 }
 
-.close-btn:hover {
-  color: var(--color-text-dark);
+/* keep the hamburger bar styling intact */
+.mobile-nav-toggle span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: var(--color-text-dark);
+  margin: 5px 0;
+  transition: all 0.3s ease-in-out;
 }
 
-.nav-arrow {
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 2rem;
-  color: var(--color-text-light);
-  transition: color 0.3s ease;
-  user-select: none; /* Prevents text selection on double click */
 }
 
-.nav-arrow:hover {
-  color: var(--color-primary);
+/* make the mobile "Request Appointment" button show its text correctly */
+@media (max-width: 900px) {
+  /* target the button-styled link inside the mobile nav */
+  .main-nav a.btn,
+  .main-nav a.btn-primary,
+  .main-nav li.mobile-only a.btn,
+  .main-nav li.mobile-only a.btn-primary {
+    color: #fff;                       /* ensure readable text */
+    background-color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    padding: 0.85rem 1.4rem;
+    border-radius: 50px;
+    font-weight: 600;
+    display: inline-block;             /* prevent collapse to just the background */
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  /* hover state for mobile */
+  .main-nav a.btn:hover,
+  .main-nav a.btn-primary:hover {
+    background-color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: #fff;
+  }
+
+  /* make the mobile-only list item full width so the button looks like a bar */
+  .main-nav ul li.mobile-only {
+    width: 100%;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .main-nav ul li.mobile-only a.btn {
+    width: 100%;
+    max-width: 360px; /* keeps it from getting HUGE on bigger phones */
+  }
 }
 
-.nav-arrow.prev {
-  left: -50px;
-}
 
-.nav-arrow.next {
-  right: -50px;
-}
