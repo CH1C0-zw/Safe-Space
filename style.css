@@ -516,3 +516,20 @@ main > section {
     max-width: 360px;
   }
 }
+
+#about {
+  display: flex;
+  justify-content: center; /* horizontal centering */
+  align-items: center;     /* vertical centering */
+  min-height: 100vh;       /* full viewport height */
+  text-align: center;      /* center text alignment */
+}
+
+#about .hero-inner {
+  display: block; /* disable the 2-column grid */
+}
+
+#about .hero-copy {
+  max-width: 900px; /* optional: control line width */
+  margin: 0 auto;
+}
